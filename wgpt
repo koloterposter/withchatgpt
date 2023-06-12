@@ -1,0 +1,24 @@
+#wgpt
+import imdb
+
+def get_movie_info(title):
+    ia = imdb.IMDb()
+    movies = ia.search_movie(title)
+    
+    if len(movies) > 0:
+        movie_id = movies[0].getID()
+        movie = ia.get_movie(movie_id)
+        
+        print("Title:", movie['title'])
+        print("Year:", movie['year'])
+        print("Genres:", ', '.join(movie['genres']))
+        print("Rating:", movie['rating'])
+        print("Plot:", movie['plot'][0])
+        print("Director(s):", ', '.join([director['name'] for director in movie['directors']]))
+        print("Cast:", ', '.join([actor['name'] for actor in movie['cast'][:5]]))
+    else:
+        print("No movie found with the given title.")
+
+# Example usage
+get_movie_info("Inception")
+
